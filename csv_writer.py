@@ -16,11 +16,15 @@ HEADERS = [
 ]
 
 
-def write_results(results: list[dict], output_dir: str = "results") -> str:
-    """Write results to a timestamped CSV file."""
+def write_results(results: list[dict], query: str = "", output_dir: str = "results") -> str:
+    """Write results to a CSV file named after the search query."""
+    import re
     os.makedirs(output_dir, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filepath = os.path.join(output_dir, f"{timestamp}_results.csv")
+    # Sanitize query for use as filename
+    safe_name = re.sub(r'[^\w\s-]', '', query).strip().replace(' ', '_')[:100]
+    if not safe_name:
+        safe_name = "results"
+    filepath = os.path.join(output_dir, f"{safe_name}.csv")
 
     with open(filepath, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=HEADERS)

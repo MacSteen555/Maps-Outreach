@@ -70,7 +70,7 @@ def run_outreach(query: str, max_results: int = 20) -> dict:
         results.append({**biz, "emails": emails, "contacts": contacts})
 
     # Step 4: Write CSV
-    filepath = write_results(results)
+    filepath = write_results(results, query=query)
     print(f"\nResults saved to: {filepath}")
     print(f"Total: {len(results)} | With email: {with_email} | No email: {len(results) - with_email}")
 
