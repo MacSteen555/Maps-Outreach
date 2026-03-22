@@ -22,6 +22,7 @@ def search_places(query: str, max_results: int = 20) -> list[dict]:
             "places.nationalPhoneNumber,"
             "places.websiteUri,"
             "places.rating,"
+            "places.userRatingCount,"
             "places.primaryTypeDisplayName,"
             "places.googleMapsUri"
         ),
@@ -44,6 +45,7 @@ def search_places(query: str, max_results: int = 20) -> list[dict]:
             "phone": place.get("nationalPhoneNumber", ""),
             "website": place.get("websiteUri", ""),
             "rating": place.get("rating", ""),
+            "review_count": place.get("userRatingCount", ""),
             "category": place.get("primaryTypeDisplayName", {}).get("text", ""),
             "google_maps_url": place.get("googleMapsUri", ""),
         })
